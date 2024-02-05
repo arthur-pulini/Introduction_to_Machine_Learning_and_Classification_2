@@ -1,7 +1,9 @@
 import pandas as pd 
 from sklearn.svm import LinearSVC
+from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
+SEED = 20
 
 model = LinearSVC()
 
@@ -12,10 +14,7 @@ datas = pd.read_csv(uri)
 x = datas[["home", "how_it_works", "contact"]]
 y = datas["bought"]
 
-trainX = x[:75]
-trainY = y[:75]
-testX = x[75:]
-testY = y[75:]
+trainX, testX, trainY, testY = train_test_split(x, y, random_state = SEED, test_size = 0.25, stratify = y)
 
 model.fit(trainX, trainY)
 
